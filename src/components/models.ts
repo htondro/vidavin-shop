@@ -6,3 +6,11 @@ export interface Todo {
 export interface Meta {
   totalCount: number;
 }
+
+export interface Category {
+  id: number;
+  name: string;
+  desc: string;
+  slug: string;
+  image: string;
+}

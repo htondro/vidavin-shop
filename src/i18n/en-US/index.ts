@@ -3,5 +3,6 @@
 
 export default {
   failed: 'Action failed',
-  success: 'Action was successful'
+  success: 'Action was successful',
+  headerTopBar: 'All prices are up to date.',
 };

@@ -1,1 +1,93 @@
 // app global css in SCSS form
+// app global css in SCSS form
+@font-face {
+  font-family: iranyekan-black;
+  src: url(./fonts/IRANYekanWebBlack.woff);
+}
+@font-face {
+  font-family: iranyekan-bold;
+  src: url(./fonts/IRANYekanWebBold.woff);
+}
+@font-face {
+  font-family: iranyekan-extra-black;
+  src: url(./fonts/IRANYekanWebExtraBlack.woff);
+}
+@font-face {
+  font-family: iranyekan-extra-bold;
+  src: url(./fonts/IRANYekanWebExtraBold.woff);
+}
+@font-face {
+  font-family: iranyekan-light;
+  src: url(./fonts/IRANYekanWebLight.woff);
+}
+@font-face {
+  font-family: iranyekan-medium;
+  src: url(./fonts/IRANYekanWebMedium.woff);
+}
+@font-face {
+  font-family: iranyekan;
+  src: url(./fonts/IRANYekanWebRegular.woff);
+}
+@font-face {
+  font-family: iranyekan-thin;
+  src: url(./fonts/IRANYekanWebThin.woff);
+}
+
+.iranyekan {
+  font-family: 'iranyekan';
+}
+html,
+body,
+p,
+span,
+div {
+  font-family: 'iranyekan';
+}
+$xs-breakpoint: 718px;
+$sm-breakpoint: 1024px;
+$md-breakpoint: 1439px;
+$lg-breakpoint: 1920px;
+
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: $xs-breakpoint) {
+  .container,
+  .container-sm {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: $sm-breakpoint) {
+  .container,
+  .container-sm,
+  .container-md {
+    max-width: 920px;
+  }
+}
+
+@media (min-width: $md-breakpoint) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: $lg-breakpoint) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 1440px;
+  }
+}
