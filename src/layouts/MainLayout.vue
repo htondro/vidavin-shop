@@ -26,7 +26,7 @@
       <!-- drawer content -->
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container class="container">
       <router-view />
     </q-page-container>
 

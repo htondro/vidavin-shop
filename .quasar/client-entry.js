@@ -242,7 +242,7 @@ import quasarUserOptions from './quasar-user-options.js'
 
 
 
-const publicPath = `/shop-new/`
+const publicPath = `/shopnew/`
 
 const doubleSlashRE = /\/\//
 const addPublicPath = url => (publicPath + url).replace(doubleSlashRE, '/')
