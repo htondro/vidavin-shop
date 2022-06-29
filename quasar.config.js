@@ -103,9 +103,9 @@ module.exports = configure(function (ctx) {
           /* look at QuasarConfOptions from the API card */
         },
         loading: {
-          delay: 500,
+          delay: 100,
           spinnerColor: 'secondary',
-          backgroundColor: 'primary',
+          backgroundColor: 'white',
           /* look at QuasarConfOptions from the API card */
         },
       },

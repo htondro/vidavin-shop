@@ -13,7 +13,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/vp/:slug',
         component: () => import('pages/VariationsPage.vue'),
-        props: true,
+        props: (route) => ({ slug: route.params.slug }),
         name: 'Variations',
       },
     ],
