@@ -26,14 +26,12 @@ export interface Variation {
   id: number;
   name: string;
   desc: string;
+  wcid: string;
   slug: string;
-  category: number;
-  model: number;
-  fields: number[];
-  related: number;
+  category: string;
+  model: string;
+  fields: string[];
+  related: string[];
   price: number;
-  image1: string[];
-  image2: string[];
-  image3: string[];
-  image4: string[];
+  images: [string[]];
 }

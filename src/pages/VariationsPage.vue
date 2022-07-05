@@ -26,66 +26,64 @@
                     v-for="variation in variations"
                     :key="variation.id"
                   >
-                    <router-link :to="'#'">
-                      <q-img
-                        :src="variation.image1[0]"
-                        :alt="variation.name"
-                        :width="variation.image1[1]"
-                        :height="variation.image1[2]"
-                      >
-                        <div class="absolute-bottom text-subtitle1 text-center">
-                          {{ variation.name }}
-                        </div>
-                      </q-img>
-                    </router-link>
+                    <variation-card :variation="variation"></variation-card>
                   </div>
                 </transition-group>
               </div>
             </div>
           </transition>
         </div>
+        <q-inner-loading
+          class="loading"
+          :showing="loading"
+          size="md"
+          color="secondary"
+        />
       </div>
     </section>
   </q-page>
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar';
 import { getModel, getVariations } from 'src/assets/functions';
 import { Model, Variation } from 'src/components/models';
+import VariationCard from 'src/components/VariationCard.vue';
 import { defineComponent, onMounted, ref } from 'vue';
 export default defineComponent({
   name: 'VariationsPage',
+  components: { VariationCard },
   props: {
     slug: {
       type: String,
+      required: true,
+    },
+    id: {
+      type: Number,
       required: true,
     },
   },
   setup(props) {
     const variations = ref<Variation[]>();
     const product = ref<Model>();
-    const $q = useQuasar();
+    const loading = ref(true);
     onMounted(() => {
-      $q.loading.show();
-      getModel(props.slug)
+      getModel(props.id)
         .then((response) => {
           product.value = response;
-          getVariations(props.slug)
-            .then((response) => {
-              variations.value = response;
-              console.log(product.value);
-              $q.loading.hide();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      getVariations(props.id)
+        .then((response) => {
+          variations.value = response;
+          loading.value = false;
         })
         .catch((err) => {
           console.log(err);
         });
     });
-    return { product, variations };
+    return { product, variations, loading };
   },
 });
 </script>

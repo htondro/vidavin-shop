@@ -90,3 +90,43 @@ $lg-breakpoint: 1920px;
     max-width: 1440px;
   }
 }
+
+.loading {
+  background-color: white;
+}
+.product-desc {
+  img {
+    width: 100%;
+  }
+  figure {
+    margin: 0;
+  }
+  p {
+    text-align: justify;
+  }
+}
+.product-specs {
+  table {
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+    p {
+      margin: 0;
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid #ccc;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    vertical-align: middle;
+  }
+}
+.image-popup-carousel {
+  width: 1000px;
+  height: 100%;
+  max-width: 90vw;
+}

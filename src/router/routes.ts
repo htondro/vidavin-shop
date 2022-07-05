@@ -11,10 +11,19 @@ const routes: RouteRecordRaw[] = [
         name: 'Models',
       },
       {
-        path: '/vp/:slug',
+        path: '/vp-:id(\\d+)/:slug',
         component: () => import('pages/VariationsPage.vue'),
-        props: (route) => ({ slug: route.params.slug }),
+        props: (route) => ({ slug: route.params.slug, id: route.params.id }),
         name: 'Variations',
+      },
+      {
+        path: 'var-:id(\\d+)/:slug',
+        component: () => import('pages/VariationPage.vue'),
+        name: 'Variation',
+        props: (route) => ({
+          id: route.params.id,
+          slug: route.params.slug,
+        }),
       },
     ],
   },

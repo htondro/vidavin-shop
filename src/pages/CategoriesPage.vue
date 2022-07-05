@@ -30,18 +30,7 @@
                     v-for="model in category.models"
                     :key="model.id"
                   >
-                    <router-link :to="'/vp/' + model.slug">
-                      <q-img
-                        :src="model.image[0]"
-                        :alt="model.name"
-                        :width="model.image[1]"
-                        :height="model.image[2]"
-                      >
-                        <div class="absolute-bottom text-subtitle1 text-center">
-                          {{ model.name }}
-                        </div>
-                      </q-img>
-                    </router-link>
+                    <product-card :product="model" />
                   </div>
                 </transition-group>
               </div>
@@ -49,6 +38,12 @@
           </div>
         </transition-group>
       </div>
+      <q-inner-loading
+        class="loading"
+        :showing="loading"
+        size="md"
+        color="secondary"
+      />
     </section>
   </q-page>
 </template>
@@ -57,24 +52,24 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { getCategories } from 'src/assets/functions';
 import { Category } from 'src/components/models';
-import { useQuasar } from 'quasar';
+import ProductCard from 'src/components/ProductCard.vue';
 export default defineComponent({
   name: 'CategoriesPage',
+  components: { ProductCard },
   setup() {
     const categories = ref<Category[]>();
-    const $q = useQuasar();
+    const loading = ref(true);
     onMounted(() => {
-      $q.loading.show();
       getCategories()
         .then((res) => {
           categories.value = res;
-          $q.loading.hide();
+          loading.value = false;
         })
         .catch((err) => {
           console.log(err);
         });
     });
-    return { categories };
+    return { categories, loading };
   },
 });
 </script>

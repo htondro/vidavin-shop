@@ -18,5 +18,5 @@ import {Notify,Loading} from 'quasar'
 
 
 
-export default { config: {"brand":{"primary":"#f5f5f5","secondary":"#c70074","accent":"#a10a69","dark":"#454545","positive":"#08cca2","negative":"#fc7905","info":"#8ec6de","warning":"#f2db41"},"notify":{},"loading":{"delay":100,"spinnerColor":"secondary","backgroundColor":"white"}},lang,plugins: {Notify,Loading} }
+export default { config: {"brand":{"primary":"#f5f5f5","secondary":"#c70074","accent":"#a10a69","dark":"#454545","positive":"#08cca2","negative":"#fc7905","info":"#8ec6de","warning":"#f2db41"},"notify":{},"loading":{"delay":400,"spinnerColor":"secondary","backgroundColor":"white","customClass":"loading"}},lang,plugins: {Notify,Loading} }
 

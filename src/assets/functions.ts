@@ -8,20 +8,48 @@ export async function getCategories(): Promise<Category[]> {
   });
   return res.data;
 }
-export async function getVariations(modelSlug: string): Promise<Variation[]> {
+export async function getVariations(id: number): Promise<Variation[]> {
   const res: { data: Variation[] } = await api.post('shop/content', {
     action: 'getVariations',
     data: {
-      modelSlug: modelSlug,
+      modelId: id,
     },
   });
   return res.data;
 }
 
-export async function getModel(modelSlug: string): Promise<Model> {
+export async function getModel(id: number): Promise<Model> {
   const res: { data: Model } = await api.post('shop/content', {
     action: 'getModel',
-    data: { modelSlug: modelSlug },
+    data: { modelId: id },
+  });
+  return res.data;
+}
+
+export async function getVariation(id: number): Promise<Variation> {
+  const res: { data: Variation } = await api.post('shop/content', {
+    action: 'getVariation',
+    data: { varId: id },
+  });
+  return res.data;
+}
+
+export async function getProductDesc(wcid: string): Promise<string> {
+  const res: { data: string } = await api.post('shop/content', {
+    action: 'getProductDesc',
+    data: {
+      wcid: wcid,
+    }
+  });
+  return res.data;
+}
+
+export async function getProductSpecs(wcid: string): Promise<string> {
+  const res: { data: string } = await api.post('shop/content', {
+    action: 'getProductSpecs',
+    data: {
+      wcid: wcid,
+    }
   });
   return res.data;
 }
