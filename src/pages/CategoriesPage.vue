@@ -1,6 +1,9 @@
 <template>
   <q-page padding>
-    <section class="q-col-gutter-md row justify-between items-start">
+    <section
+      class="q-col-gutter-md row justify-between items-start"
+      v-if="!loading"
+    >
       <div class="col-xs-12">
         <transition-group
           appear
@@ -38,13 +41,13 @@
           </div>
         </transition-group>
       </div>
-      <q-inner-loading
-        class="loading"
-        :showing="loading"
-        size="md"
-        color="secondary"
-      />
     </section>
+    <q-inner-loading
+      class="loading"
+      :showing="loading"
+      size="md"
+      color="secondary"
+    />
   </q-page>
 </template>
 

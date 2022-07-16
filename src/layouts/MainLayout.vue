@@ -15,9 +15,13 @@
           }}</q-btn>
         </div>
         <div class="col-auto">
-          <q-btn flat icon="o_shopping_cart" aria-label="Cart">{{
-            $t('cart')
-          }}</q-btn>
+          <q-btn
+            flat
+            icon="o_shopping_cart"
+            aria-label="Cart"
+            @click="$router.push({ name: 'Cart' })"
+            >{{ $t('cart') }}</q-btn
+          >
         </div>
       </section>
     </q-header>
@@ -27,15 +31,13 @@
       side="left"
       bordered
       overlay
-      breakpoint="1400"
+      :breakpoint="1400"
     >
       <!-- drawer content -->
     </q-drawer>
 
     <q-page-container class="container">
-      <keep-alive>
-        <router-view />
-      </keep-alive>
+      <router-view> </router-view>
     </q-page-container>
 
     <q-footer bordered class="bg-grey-8 text-white">

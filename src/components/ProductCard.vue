@@ -4,9 +4,15 @@
     class="q-hovarable cursor-pointer"
     @click="$router.push('/vp-' + product.id + '/' + product?.slug)"
   >
-    <img :src="product?.image[0]" :alt="product?.name" />
+    <q-img :src="product?.image[0]" no-spinner class="bg-grey" />
     <q-card-section>
       <div class="text-center text-secondary">{{ product?.name }}</div>
+    </q-card-section>
+    <q-separator color="grey" />
+    <q-card-section>
+      <div class="text-center text-caption text-accent">
+        {{ product.priceRange }}
+      </div>
     </q-card-section>
   </q-card>
 </template>

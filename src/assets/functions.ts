@@ -1,5 +1,5 @@
 import { api } from 'src/boot/axios';
-import { Category, Variation, Model } from 'src/components/models';
+import { Category, Variation, Model, VariationField } from 'src/components/models';
 
 export async function getCategories(): Promise<Category[]> {
   const res: { data: Category[] } = await api.post('shop/content', {
@@ -49,6 +49,16 @@ export async function getProductSpecs(wcid: string): Promise<string> {
     action: 'getProductSpecs',
     data: {
       wcid: wcid,
+    }
+  });
+  return res.data;
+}
+
+export async function getVariationFields(fields: string[]): Promise<VariationField[]> {
+  const res: { data: VariationField[] } = await api.post('shop/content', {
+    action: 'getVariationFields',
+    data: {
+      fields: fields,
     }
   });
   return res.data;

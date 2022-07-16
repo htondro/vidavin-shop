@@ -25,6 +25,16 @@ const routes: RouteRecordRaw[] = [
           slug: route.params.slug,
         }),
       },
+      {
+        path: 'cart',
+        component: () => import('pages/CartPage.vue'),
+        name: 'Cart',
+      },
+      {
+        path: 'checkout',
+        component: () => import('pages/CheckoutPage.vue'),
+        name: 'Checkout',
+      }
     ],
   },
 

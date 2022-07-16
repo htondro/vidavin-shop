@@ -4,28 +4,41 @@
     class="q-hovarable cursor-pointer"
     @click="$router.push('/var-' + variation.id + '/' + variation.slug)"
   >
-    <img :src="variation?.image1[0]" :alt="variation?.name" />
+    <q-img :src="variation?.images[0][0]" no-spinner class="bg-grey" />
     <q-card-section>
       <div class="text-center text-secondary">{{ variation?.name }}</div>
     </q-card-section>
     <q-separator color="grey" />
-    <template v-if="variation.price != 0">
+    <template v-if="variation.sellingPrice != 0 && variation.available">
       <q-card-section horizontal>
-        <q-card-section>
-          <q-icon name="o_sell" size="xs" color="accent" />
+        <q-card-section class="self-center">
+          <q-icon
+            v-if="variation.discount"
+            name="o_percent"
+            size="xs"
+            color="accent"
+          />
+          <q-icon v-else name="o_sell" size="xs" color="accent" />
         </q-card-section>
         <q-separator vertical />
         <q-card-section>
-          <span class="q-px-xs text-accent">
-            {{ variation.price.toLocaleString('fa-IR') }}
-          </span>
-          <span class="q-px-xs text-accent">
-            {{ $t('currency') }}
-          </span>
+          <div class="text-grey text-caption" v-if="variation.discount">
+            <span class="q-px-xs text-strike">
+              {{ variation.normalPrice.toLocaleString('fa-IR') }}
+            </span>
+          </div>
+          <div class="text-accent">
+            <span class="q-px-xs">
+              {{ variation.sellingPrice.toLocaleString('fa-IR') }}
+            </span>
+            <span class="q-px-xs">
+              {{ $t('currency') }}
+            </span>
+          </div>
         </q-card-section>
       </q-card-section>
     </template>
-    <template v-else>
+    <template v-else-if="!variation.priceIsComputed || !variation.available">
       <q-card-section class="text-grey text-center">
         {{ $t('outOfStock') }}
       </q-card-section>

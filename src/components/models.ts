@@ -1,20 +1,13 @@
-export interface Todo {
-  id: number;
-  content: string;
-}
 
-export interface Meta {
-  totalCount: number;
-}
 export interface Model {
-  id: number;
+  id: string;
   name: string;
-  desc: string;
+  priceRange: string;
   slug: string;
   image: string[];
 }
 export interface Category {
-  id: number;
+  id: string;
   name: string;
   desc: string;
   slug: string;
@@ -23,15 +16,49 @@ export interface Category {
 }
 
 export interface Variation {
-  id: number;
+  id: string;
   name: string;
+  subtitle: string;
   desc: string;
   wcid: string;
+  wcPrice: number;
+  quantity: number;
+  available: boolean;
   slug: string;
   category: string;
   model: string;
   fields: string[];
   related: string[];
-  price: number;
+  priceIsComputed: boolean;
+  computedPriceFunction: string;
+  computedPrice: number;
+  modelPriceRange: string;
+  sellingPrice: number;
+  discount: boolean;
+  normalPrice: number;
   images: [string[]];
+  meta: Record<string, string | number | null>;
+}
+
+export interface VariationField {
+  id: string;
+  label: string;
+  desc: string;
+  model: 'number' | 'text' | 'file';
+  accepts: string;
+  value: 'number' | 'text' | null;
+}
+
+export interface Customer {
+  username: string | number;
+  exist: boolean;
+  firstName: string;
+  lastName: string;
+  phone: number | null;
+  email: string;
+  country: string;
+  state: string;
+  city: string;
+  address: string;
+  postcode: number | null;
 }
