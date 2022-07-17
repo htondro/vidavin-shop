@@ -1,6 +1,6 @@
 export default {
-  headerTopBar: 'تمام قیمت‌ها به روز هستند.',
-  menu: 'منو',
+  headerTopBar: 'تمام قیمت‌ها به روز هستند، به راحتی ثبت سفارش کنید',
+  menu: 'دسته بندی و راهنمای خرید',
   cart: 'سبد خرید',
   footerBottomBar: 'Copyright {year} © VIDAVIN',
   currency: 'تومان',

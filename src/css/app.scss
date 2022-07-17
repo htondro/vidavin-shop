@@ -56,11 +56,17 @@ $lg-breakpoint: 1920px;
   margin-right: auto;
   margin-left: auto;
 }
+#main-carousel {
+  height: 60vw;
+}
 
 @media (min-width: $xs-breakpoint) {
   .container,
   .container-sm {
     max-width: 540px;
+  }
+  #main-carousel {
+    height: 35vw;
   }
 }
 
@@ -69,6 +75,9 @@ $lg-breakpoint: 1920px;
   .container-sm,
   .container-md {
     max-width: 920px;
+  }
+  #main-carousel {
+    height: 30vw;
   }
 }
 
@@ -79,6 +88,9 @@ $lg-breakpoint: 1920px;
   .container-lg {
     max-width: 1140px;
   }
+  #main-carousel {
+    height: 40vw;
+  }
 }
 
 @media (min-width: $lg-breakpoint) {
@@ -88,6 +100,9 @@ $lg-breakpoint: 1920px;
   .container-lg,
   .container-xl {
     max-width: 1440px;
+  }
+  #main-carousel {
+    height: 30vw;
   }
 }
 
@@ -129,4 +144,29 @@ $lg-breakpoint: 1920px;
   width: 1000px;
   height: 100%;
   max-width: 90vw;
+}
+
+@function fluid-font-size(
+  $minimumSize: 12,
+  $maximumSize: 36,
+  $minimumViewportWidth: 300,
+  $maximumViewportWidth: 1600
+) {
+  $fontSize: unquote(
+    'calc(#{$minimumSize}px + (#{$maximumSize} - #{$minimumSize}) * ((100vw - #{$minimumViewportWidth}px) / (#{$maximumViewportWidth} - #{$minimumViewportWidth})))'
+  );
+  @return $fontSize;
+}
+
+@for $num from 8 to 28 {
+  .fontsize-#{$num} {
+    font-size: fluid-font-size($num, ($num * 1.5), 300, 1600);
+  }
+}
+
+.catalog-header {
+  clip-path: polygon(5% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.product-card-separator {
+  margin: 3px 0;
 }

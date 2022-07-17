@@ -62,3 +62,8 @@ export interface Customer {
   address: string;
   postcode: number | null;
 }
+
+export interface Banner {
+  url: string;
+  image: string[];
+}

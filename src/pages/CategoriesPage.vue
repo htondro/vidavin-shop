@@ -1,9 +1,29 @@
 <template>
-  <q-page padding>
-    <section
-      class="q-col-gutter-md row justify-between items-start"
-      v-if="!loading"
+  <q-page>
+    <q-carousel
+      animated
+      v-model="slide"
+      navigation
+      infinite
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      swipeable
+      :autoplay="autoplay"
+      @mouseenter="autoplay = false"
+      @mouseleave="autoplay = true"
+      id="main-carousel"
     >
+      <q-carousel-slide
+        class="cursor-pointer"
+        @click="redirectBanner(banner)"
+        style="background-size: cover"
+        v-for="(banner, index) in banners"
+        :key="index"
+        :name="index"
+        :img-src="banner.image[0]"
+      />
+    </q-carousel>
+    <section class="row justify-center items-start" v-if="!loading">
       <div class="col-xs-12">
         <transition-group
           appear
@@ -15,21 +35,22 @@
             v-for="category in categories"
             :key="category.id"
           >
-            <div class="col shadow-1 bg-white">
-              <div class="row items-start justify-start q-pa-md">
-                <strong>{{ category.name }}</strong>
+            <div class="col">
+              <div class="row items-center justify-start">
+                <div class="col-auto bg-primary q-pa-xs catalog-header">
+                  <q-icon name="expand_more" color="secondary" size="md" />
+                  <strong class="q-pr-md">{{ category.name }}</strong>
+                </div>
               </div>
-              <q-separator color="grey" />
-              <div
-                class="row q-col-gutter-md items-start justify-start q-pa-md"
-              >
+              <q-separator color="secondary" size="2px" />
+              <div class="row items-start justify-start">
                 <transition-group
                   appear
                   enter-active-class="animated zoomIn"
                   leave-active-class="animated zoomOut"
                 >
                   <div
-                    class="col-md-3 col-xs-12 q-pa-md"
+                    class="col-md-3 col-xs-6 q-pa-sm"
                     v-for="model in category.models"
                     :key="model.id"
                   >
@@ -53,15 +74,21 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import { getCategories } from 'src/assets/functions';
-import { Category } from 'src/components/models';
+import { getBanners, getCategories } from 'src/assets/functions';
+import { Banner, Category } from 'src/components/models';
 import ProductCard from 'src/components/ProductCard.vue';
 export default defineComponent({
   name: 'CategoriesPage',
   components: { ProductCard },
   setup() {
     const categories = ref<Category[]>();
+    const banners = ref<Banner[]>([]);
+    const slide = ref(0);
+    const autoplay = ref(true);
     const loading = ref(true);
+    const redirectBanner = (banner: Banner) => {
+      window.location.href = banner.url;
+    };
     onMounted(() => {
       getCategories()
         .then((res) => {
@@ -71,8 +98,12 @@ export default defineComponent({
         .catch((err) => {
           console.log(err);
         });
+      getBanners('main_top').then((res) => {
+        banners.value = res;
+        loading.value = false;
+      });
     });
-    return { categories, loading };
+    return { categories, banners, slide, autoplay, loading, redirectBanner };
   },
 });
 </script>

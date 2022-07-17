@@ -1,24 +1,44 @@
 <template>
   <q-layout view="hhh lpR fff">
     <q-header elevated class="bg-white text-secondary">
-      <section class="bg-secondary text-primary">
-        <div class="container q-pa-xs">{{ $t('headerTopBar') }}</div>
+      <section class="bg-primary text-grey">
+        <div
+          class="container q-pa-xs fontsize-10"
+          :class="{ 'text-center': $q.platform.is.mobile }"
+        >
+          {{ $t('headerTopBar') }}
+        </div>
       </section>
       <section class="row justify-center align-center q-pa-md">
         <img src="~assets/vidavin-logo-header.png" width="150" height="60" />
       </section>
       <q-separator />
-      <section class="container row justify-between align-center q-pa-xs">
-        <div class="col-auto">
-          <q-btn flat icon="menu" aria-label="Menu" @click="toggleLeftDrawer">{{
-            $t('menu')
-          }}</q-btn>
+      <section class="container row justify-between align-center q-pa-md">
+        <div class="col-7">
+          <div class="row">
+            <div class="col-shrink full-height self-center q-pr-sm">
+              <q-btn
+                @click="toggleLeftDrawer"
+                dense
+                color="secondary"
+                icon="o_grid_view"
+                aria-label="Menu"
+              />
+            </div>
+            <div
+              class="col-xs-6 col-md-2 cursor-pointer"
+              @click="toggleLeftDrawer"
+            >
+              {{ $t('menu') }}
+            </div>
+          </div>
         </div>
         <div class="col-auto">
           <q-btn
-            flat
-            icon="o_shopping_cart"
+            color="positive"
+            icon-right="shopping_cart"
             aria-label="Cart"
+            unelevated
             @click="$router.push({ name: 'Cart' })"
             >{{ $t('cart') }}</q-btn
           >
@@ -44,10 +64,8 @@
       <section class="container row justify-between align-center q-pa-md">
         <div class="col-md-3 col-xs-6 align-start justify-center">footer 1</div>
         <div class="col-md-3 col-xs-6 align-start justify-center">footer 2</div>
-        <div class="col-md-3 col-xs-6 align-start justify-center">footer 3</div>
-        <div class="col-md-3 col-xs-6 align-start justify-center">footer 4</div>
       </section>
-      <section class="bg-dark text-white">
+      <section class="bg-secondary text-white">
         <div class="container row justify-center align-center">
           <div class="col-auto q-pa-xs">
             {{ $t('footerBottomBar', { year: new Date().getFullYear() }) }}
