@@ -23,27 +23,23 @@
         :img-src="banner.image[0]"
       />
     </q-carousel>
-    <section class="row justify-center items-start" v-if="!loading">
-      <div class="col-xs-12">
+    <section class="row" v-if="!loading">
+      <div class="col">
         <transition-group
           appear
           enter-active-class="animated fadeIn"
           leave-active-class="animated fadeOut"
         >
-          <div
-            class="row q-pa-md"
-            v-for="category in categories"
-            :key="category.id"
-          >
-            <div class="col">
-              <div class="row items-center justify-start">
+          <div class="row" v-for="category in categories" :key="category.id">
+            <div class="col q-pa-md">
+              <div class="row">
                 <div class="col-auto bg-primary q-pa-xs catalog-header">
                   <q-icon name="expand_more" color="secondary" size="md" />
                   <strong class="q-pr-md">{{ category.name }}</strong>
                 </div>
               </div>
               <q-separator color="secondary" size="2px" />
-              <div class="row items-start justify-start">
+              <div class="row">
                 <transition-group
                   appear
                   enter-active-class="animated zoomIn"

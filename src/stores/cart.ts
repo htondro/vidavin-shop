@@ -24,6 +24,27 @@ export const useCartStore = defineStore('cart', {
         total += item.variation.computedPrice
       });
       return total;
+    },
+    getItemsVariationId(state) {
+      const ids: string[] = [];
+      state.items.forEach(item => {
+        if (!ids.includes(item.variation.id)) {
+          ids.push(item.variation.id);
+        }
+      });
+      return ids;
+    },
+    getCommonRelatedVariations(state) {
+      const related: string[] = [];
+      const ids = this.getItemsVariationId;
+      state.items.forEach(item => {
+        if (item.variation.related.length) {
+          item.variation.related.forEach(id => {
+            if (!related.includes(id) && !ids.includes(id)) { related.push(id); }
+          })
+        }
+      })
+      return related;
     }
   },
 

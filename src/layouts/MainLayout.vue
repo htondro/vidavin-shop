@@ -40,7 +40,7 @@
             aria-label="Cart"
             unelevated
             @click="$router.push({ name: 'Cart' })"
-            >{{ $t('cart') }}</q-btn
+            >{{ $t('cartButton') }}</q-btn
           >
         </div>
       </section>

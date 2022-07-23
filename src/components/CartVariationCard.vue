@@ -1,71 +1,160 @@
 <template>
-  <transition
-    apear
-    enter-active-class="animated zoomIn"
-    leave-active-class="animated zoomOut"
-    :key="timestamp"
-  >
-    <q-item class="q-my-md">
-      <q-item-section avatar>
-        <q-avatar rounded>
-          <img :src="variation.images[0][0]" color="grey" no-spinner />
-        </q-avatar>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label lines="1">{{ variation.name }}</q-item-label>
-        <q-item-label caption>
-          <template v-if="variation.priceIsComputed">
-            <template v-if="computedPriceFunction(variation)">
-              <div class="text-secondary items-baseline">
-                <span>
-                  {{ computedPriceFunction(variation).toLocaleString('fa-IR') }}
-                </span>
-                <span class="q-px-xs">
-                  {{ $t('currency') }}
+  <div class="col">
+    <div class="row shadow-1 q-mt-md" style="position: relative; z-index: 1">
+      <div class="col-xs-4 q-pa-xs">
+        <q-img :src="variation.images[0][0]" color="grey" no-spinner />
+      </div>
+      <div class="col-xs-8">
+        <div class="row">
+          <div class="col-grow q-pa-xs">
+            <div class="row">
+              <div class="col-auto">
+                <div>{{ variation.name }}</div>
+                <q-separator inset class="product-card-separator" />
+                <template v-if="variation.priceIsComputed">
+                  <template v-if="computedPriceFunction(variation)">
+                    <transition
+                      appear
+                      enter-active-class="animated zoomIn"
+                      leave-active-class="animated zoomOut"
+                    >
+                      <div class="text-positive items-baseline fontsize-10">
+                        <span>
+                          {{
+                            computedPriceFunction(variation).toLocaleString(
+                              'fa-IR'
+                            )
+                          }}
+                        </span>
+                        <span class="q-px-xs fontsize-10">
+                          {{ $t('currency') }}
+                        </span>
+                      </div>
+                    </transition>
+                  </template>
+                  <template v-else-if="computedPriceFunction(variation) == 0">
+                    <transition
+                      appear
+                      enter-active-class="animated zoomIn"
+                      leave-active-class="animated zoomOut"
+                    >
+                      <div
+                        class="text-caption text-grey fontsize-8"
+                        v-html="$t('fillVariationFormHint')"
+                      ></div>
+                    </transition>
+                  </template>
+                </template>
+                <template v-if="!variation.priceIsComputed">
+                  <transition
+                    appear
+                    enter-active-class="animated zoomIn"
+                    leave-active-class="animated zoomOut"
+                  >
+                    <div class="text-positive fontsize-10">
+                      <span>{{
+                        variation.sellingPrice.toLocaleString('fa-IR')
+                      }}</span>
+                      <span class="q-px-xs">{{ $t('currency') }}</span>
+                    </div>
+                  </transition>
+                  <transition
+                    appear
+                    enter-active-class="animated zoomIn"
+                    leave-active-class="animated zoomOut"
+                  >
+                    <div
+                      class="text-grey text-strike fontsize-10"
+                      v-if="variation.discount"
+                    >
+                      {{ variation.normalPrice.toLocaleString('fa-IR') }}
+                    </div>
+                  </transition>
+                </template>
+              </div>
+            </div>
+          </div>
+          <q-space />
+          <div class="col-shrink q-pa-xs">
+            <div class="row justify-end">
+              <q-btn
+                icon="close"
+                dense
+                text-color="negative"
+                unelevated
+                color="primary"
+                size="sm"
+                @click="cartStore.removeItem(cartIndex)"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-end">
+      <div class="col-10 shadow-1 bg-primary q-pa-xs variation-form">
+        <div class="row">
+          <div class="col">
+            <div class="row q-pa-sm" v-if="loadingVariationForm">
+              <div class="col">
+                <q-spinner color="secondary" size="xs" />
+              </div>
+            </div>
+            <div
+              class="row cursor-pointer"
+              v-else
+              @click="toggleVariationForm = !toggleVariationForm"
+            >
+              <div class="col align-center" v-if="toggleVariationForm">
+                <q-icon name="expand_more" color="secondary" size="md" />
+                <span class="text-positive fontsize-10">
+                  {{ $t('CartVariationCardFormExpanded') }}
                 </span>
               </div>
-            </template>
-            <template v-else-if="computedPriceFunction(variation) == 0">
-              <div class="text-caption text-grey">
-                {{ $t('fillVariationFormHint') }}
+              <div class="col align-center" v-else>
+                <q-icon name="chevron_left" color="secondary" size="md" />
+                <span
+                  class="text-positive fontsize-9"
+                  v-html="$t('CartVariationCardFormCollapsed')"
+                ></span>
               </div>
-            </template>
-          </template>
-          <template v-else-if="!variation.priceIsComputed">
-            <div class="text-grey text-strike" v-if="variation.discount">
-              {{ variation.normalPrice.toLocaleString('fa-IR') }}
             </div>
-            <div class="text-secondary">
-              <span>{{ variation.sellingPrice.toLocaleString('fa-IR') }}</span>
-              <span class="q-px-xs">{{ $t('currency') }}</span>
-            </div>
-          </template>
-        </q-item-label>
-      </q-item-section>
-      <q-item-section side class="q-mx-xs">
-        <q-btn
-          color="info"
-          size="sm"
-          :loading="loadingVariationForm"
-          @click="toggleVariationForm = !toggleVariationForm"
-          ><span>{{ $t('variationFormFields') }}</span></q-btn
-        >
-      </q-item-section>
-      <q-btn
-        icon="close"
-        class="absolute-top-right"
-        flat
-        dense
-        color="grey"
-        size="xs"
-        @click="cartStore.removeItem(cartIndex)"
-      />
-    </q-item>
-  </transition>
-  <q-item v-if="toggleVariationForm">
-    <variation-fields-form :cart-index="cartIndex" :fields="fields" />
-  </q-item>
-  <q-separator />
+            <transition
+              appear
+              enter-active-class="animated zoomIn"
+              leave-active-class="animated zoomOut"
+            >
+              <div class="row q-pa-sm" v-if="toggleVariationForm">
+                <div class="col">
+                  <div class="row">
+                    <variation-fields-form
+                      :cart-index="cartIndex"
+                      :fields="fields"
+                    />
+                  </div>
+                  <div class="row justify-end">
+                    <div class="col-shrink">
+                      <q-btn
+                        color="positive"
+                        @click="toggleVariationForm = !toggleVariationForm"
+                        class="fontsize-10"
+                        :label="$t('ConfirmVariationForm')"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </transition>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -140,3 +229,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.variation-form {
+  transition: all 0.3s;
+}
+</style>

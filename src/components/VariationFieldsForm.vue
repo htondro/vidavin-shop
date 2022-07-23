@@ -1,16 +1,17 @@
 <template>
-  <div class="col-xs-12">
+  <div class="col">
     <transition-group
       appear
-      enter-active-class="animated zoomIn"
-      leave-active-class="animated zoomOut"
+      enter-active-class="animated slideInUp"
+      leave-active-class="animated slideOutLeft"
     >
-      <div class="row q-py-md" v-for="field in fields" :key="field.id">
+      <div class="row q-py-sm" v-for="field in fields" :key="field.id">
         <div class="col">
           <q-input
             v-if="['text', 'number'].includes(field.model)"
             square
             outlined
+            dense
             color="secondary"
             :label="field.label"
             :type="field.model"
@@ -101,11 +102,13 @@
                     <q-btn
                       v-if="scope.canAddFiles"
                       type="a"
-                      icon="add_box"
+                      icon="add"
                       @click="scope.pickFiles"
-                      round
+                      color="primary"
+                      text-color="secondary"
+                      unelevated
+                      size="xs"
                       dense
-                      flat
                     >
                       <q-uploader-add-trigger />
                       <q-tooltip>{{ $t('pickFiles') }}</q-tooltip>
@@ -147,8 +150,9 @@
                         class="absolute-top-right q-ma-md"
                         size="xs"
                         dense
-                        round
-                        color="grey"
+                        unelevated
+                        text-color="negative"
+                        color="primary"
                         icon="close"
                         @click="scope.removeFile(file)"
                       />

@@ -26,7 +26,7 @@ export async function getModel(id: number): Promise<Model> {
   return res.data;
 }
 
-export async function getVariation(id: number): Promise<Variation> {
+export async function getVariation(id: string): Promise<Variation> {
   const res: { data: Variation } = await api.post('shop/content', {
     action: 'getVariation',
     data: { varId: id },

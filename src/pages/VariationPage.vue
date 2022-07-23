@@ -16,6 +16,7 @@
             </transition>
             <div
               class="row q-col-gutter-md q-pa-md justify-between items-start"
+              v-if="variation.images.length > 1"
             >
               <transition-group
                 appear
@@ -213,7 +214,7 @@ export default defineComponent({
       required: true,
     },
     id: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
